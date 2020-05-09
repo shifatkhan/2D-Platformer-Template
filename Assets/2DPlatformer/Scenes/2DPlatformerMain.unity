@@ -9610,6 +9610,10 @@ PrefabInstance:
       propertyPath: wallJumpingEnabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 399961024, guid: e7fcecc826687024e9b52ec763b14088, type: 3}
+      propertyPath: showRaycast
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1116900248984994, guid: e7fcecc826687024e9b52ec763b14088, type: 3}
       propertyPath: m_Name
       value: PlayerStart

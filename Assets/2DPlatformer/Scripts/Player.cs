@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /** Class that handles player physics.
- * @author Sebastian Lague
+ * @author ShifatKhan
+ * @Special thanks to Sebastian Lague
  */
 [RequireComponent (typeof (Controller2D))]
 public class Player : MonoBehaviour
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     float accelerationTimeGrounded = .1f;
     float moveSpeed = 6;
 
-    public bool wallJumpingEnabled = true;
+    public bool wallJumpingEnabled = true; // Enable/Disable the ability to walljump.
     bool wallSliding;
     int wallDirX;
 

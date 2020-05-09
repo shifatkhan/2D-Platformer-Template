@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/** 
- * @author Sebastian Lague
+/** Camera class that follows the player around.
+ * @Special thanks to Sebastian Lague
  */
 public class CameraFollow : MonoBehaviour
 {

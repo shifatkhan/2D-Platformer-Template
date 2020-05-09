@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /** This class handles Inputs from the player.
- * @author Sebastian Lague
+ * @Special thanks to Sebastian Lague
  */
- [RequireComponent (typeof (Player))]
+[RequireComponent (typeof (Player))]
 public class PlayerInput : MonoBehaviour
 {
     Player player;

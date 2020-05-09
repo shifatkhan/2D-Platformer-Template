@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /** Class that handles player collisions and interactions.
- * @author Sebastian Lague
+ * @author ShifatKhan
+ * @Special thanks to Sebastian Lague
  */
 public class Controller2D : RaycastController
 {
@@ -14,6 +15,7 @@ public class Controller2D : RaycastController
     
     [HideInInspector]
     public CollisionInfo collisions;
+    public bool showRaycast = true; // Enable/Disable raycast debugging
 
     public Vector2 playerInput; // Stores player input.
 
@@ -90,7 +92,7 @@ public class Controller2D : RaycastController
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, collisionMask);
 
             // Debug: draw collision rays.
-            Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red);
+            if (showRaycast) { Debug.DrawRay(rayOrigin, Vector2.right * directionX, Color.red); }
 
             if (hit)
             {
@@ -170,7 +172,7 @@ public class Controller2D : RaycastController
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, collisionMask);
 
             // Debug: draw collision rays.
-            Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red);
+            if (showRaycast) { Debug.DrawRay(rayOrigin, Vector2.up * directionY, Color.red); }
 
             // If the ray hit something, change all raycast distance to be the same length.
             // This is for the scenario where you might be on a ledge -> 1st ray hits ledge,

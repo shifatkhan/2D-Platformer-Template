@@ -4,7 +4,8 @@ using UnityEngine;
 
 /** NOTE: Add enough vertical rays to the platform so the player doesn't fit between
  * 2 rays. If so, player might fall through the platform.
- * @author Sebastian Lague
+ * @author ShifatKhan
+ * @Special thanks to Sebastian Lague
  */
 public class PlatformController : RaycastController
 {

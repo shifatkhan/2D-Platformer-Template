@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /** Creates rays to check for collisions.
-* @author Sebastian Lague
-*/
+ * @author ShifatKhan
+ * @Special thanks to Sebastian Lague
+ */
 [RequireComponent(typeof(BoxCollider2D))]
 public class RaycastController : MonoBehaviour
 {
