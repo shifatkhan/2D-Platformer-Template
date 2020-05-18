@@ -17,17 +17,28 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+        GetPlayerInput();
+    }
+
+    void GetPlayerInput()
+    {
         // Get player input.
         Vector2 directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         player.SetDirectionalInput(directionalInput);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             player.OnJumpInputDown();
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetButtonUp("Jump"))
         {
             player.OnJumpInputUp();
+        }
+
+        // TODO: Get player movement input if not attacking. Maybe make player stop moving when attacking
+        if (Input.GetButtonDown("Attack1"))
+        {
+            StartCoroutine(player.AttackCo());
         }
     }
 }

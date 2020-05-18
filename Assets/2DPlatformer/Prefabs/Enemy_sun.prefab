@@ -166,7 +166,7 @@ MonoBehaviour:
   enemyName: Spikey
   attackDamage: 1
   moveSpeed: 1
-  chaseDistance: 4
-  attackDistance: 2
+  chaseDistance: 6
+  attackDistance: 0.8
   target: {fileID: 0}
   homePosition: {fileID: 0}

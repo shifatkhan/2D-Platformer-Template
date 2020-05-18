@@ -5,16 +5,7 @@ using UnityEngine;
 public class KnockBack : MonoBehaviour
 {
     public float thrust;
-    
-    void Start()
-    {
-        
-    }
-    
-    void Update()
-    {
-        
-    }
+    public float knockTime;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -26,12 +17,23 @@ public class KnockBack : MonoBehaviour
                 // Make rigidbody dynamic so we can add a knock back force.
                 enemy.isKinematic = false;
 
+                // Get Direction (by normalizing) and add force to attack (thrust)
                 Vector2 direction = enemy.transform.position - transform.position;
                 direction = direction.normalized * thrust;
                 enemy.AddForce(direction, ForceMode2D.Impulse);
 
-                enemy.isKinematic = true;
+                StartCoroutine(KnockCo(enemy));
             }
+        }
+    }
+
+    private IEnumerator KnockCo(Rigidbody2D other)
+    {
+        if (other != null)
+        {
+            yield return new WaitForSeconds(knockTime);
+            other.velocity = Vector2.zero;
+            other.isKinematic = true;
         }
     }
 }

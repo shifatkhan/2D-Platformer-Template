@@ -76,11 +76,11 @@ public class CameraFollow : MonoBehaviour
         transform.position = (Vector3)focusPosition + Vector3.forward * -10; // Camera is in front of level.
     }
 
-    /** Debug: Draw camera's focus area (as a red box)
+    /** Debug: Draw camera's focus area
      */
     void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1, 0, 0, .5f);
+        Gizmos.color = new Color(1, 1, 1, .2f);
         Gizmos.DrawCube(focusArea.centre, focusAreaSize);
     }
 

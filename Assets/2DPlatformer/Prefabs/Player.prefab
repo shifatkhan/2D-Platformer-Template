@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4566797654940672}
   - component: {fileID: 212991655389708426}
-  - component: {fileID: 3303389693437125135}
-  - component: {fileID: 399961023}
-  - component: {fileID: 399961024}
-  - component: {fileID: 399961025}
   - component: {fileID: 2543954103859180919}
+  - component: {fileID: 3303389693437125135}
+  - component: {fileID: 399961025}
+  - component: {fileID: 399961024}
+  - component: {fileID: 399961023}
   m_Layer: 13
   m_Name: Player
   m_TagString: Player
@@ -32,7 +32,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.14, y: 3.39, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4470042807433466222}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -86,6 +87,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2543954103859180919
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116900248984994}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b09e60546065cf9448b36ebb7f759a91, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &3303389693437125135
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -99,7 +119,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012116909, y: -0.08211255}
+  m_Offset: {x: 0, y: -0.08211255}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -112,7 +132,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.34569454, y: 0.8304467}
   m_EdgeRadius: 0
---- !u!114 &399961023
+--- !u!114 &399961025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,18 +141,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1116900248984994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cc75ae41f82f5244bf8c6163ce0ec55, type: 3}
+  m_Script: {fileID: 11500000, guid: 8767c145bf6e2d240949bf426d7edc98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumpHeight: 2.5
-  minJumpHeight: 0.5
-  timeToJumpApex: 0.35
-  wallJumpingEnabled: 1
-  wallJumpClimb: {x: 7.5, y: 16}
-  wallJumpOff: {x: 8.5, y: 7}
-  wallLeap: {x: 18, y: 17}
-  wallSlideSpeedMax: 3
-  wallStickTime: 0.1
 --- !u!114 &399961024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,7 +167,7 @@ MonoBehaviour:
   boxCollider2D: {fileID: 0}
   showRaycast: 1
   playerInput: {x: 0, y: 0}
---- !u!114 &399961025
+--- !u!114 &399961023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,25 +176,93 @@ MonoBehaviour:
   m_GameObject: {fileID: 1116900248984994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8767c145bf6e2d240949bf426d7edc98, type: 3}
+  m_Script: {fileID: 11500000, guid: 3cc75ae41f82f5244bf8c6163ce0ec55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &2543954103859180919
-Animator:
-  serializedVersion: 3
+  maxJumpHeight: 2.5
+  minJumpHeight: 0.5
+  timeToJumpApex: 0.35
+  wallJumpingEnabled: 1
+  wallJumpClimb: {x: 7.5, y: 16}
+  wallJumpOff: {x: 8.5, y: 7}
+  wallLeap: {x: 18, y: 17}
+  wallSlideSpeedMax: 3
+  wallStickTime: 0.1
+  velocity: {x: 0, y: 0, z: 0}
+--- !u!1 &7824327364627493788
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116900248984994}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4470042807433466222}
+  - component: {fileID: 832583511240381405}
+  - component: {fileID: 417480834}
+  m_Layer: 13
+  m_Name: Attack1 hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4470042807433466222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824327364627493788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4566797654940672}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &832583511240381405
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824327364627493788}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.3659799, y: 0.6026416}
+      - {x: -0.18783092, y: 0.4808898}
+      - {x: 0.24480319, y: 0.008808374}
+      - {x: 0.11345148, y: -0.4900453}
+      - {x: 0.6378734, y: -0.25238013}
+      - {x: 0.7444422, y: 0.23396492}
+--- !u!114 &417480834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7824327364627493788}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b09e60546065cf9448b36ebb7f759a91, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b0494998c8006f4495a4a4eaf018010, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrust: 5
+  knockTime: 0.2

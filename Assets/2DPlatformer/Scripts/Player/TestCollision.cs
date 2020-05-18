@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Obsolete("This class is here for testing and will be removed.")]
 public class TestCollision : MonoBehaviour
 {
     // Start is called before the first frame update

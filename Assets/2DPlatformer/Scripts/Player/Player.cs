@@ -34,17 +34,17 @@ public class Player : MonoBehaviour
     float minJumpVelocity;
     public Vector3 velocity;
     float velocityXSmoothing;
-
+    
     Controller2D controller;
-
     Vector2 directionalInput;
-
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
     
     void Start()
     {
         controller = GetComponent<Controller2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         // Calculate gravity.
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
@@ -177,12 +177,45 @@ public class Player : MonoBehaviour
         }
     }
 
+    public IEnumerator AttackCo()
+    {
+        animator.SetBool("attacking1", true);
+        yield return null; // Wait 1 frame
+        animator.SetBool("attacking1", false);
+        //yield return null; // Wait 1 frame
+
+    }
+
     /** Updates the player's animation.
      */
     void UpdateAnimator()
     {
-        animator.SetBool("isRunning", directionalInput.x != 0);
+        if(animator != null)
+        {
+            animator.SetBool("isRunning", directionalInput.x != 0);
 
-        animator.SetBool("isAirborne", !controller.collisions.below);
+            animator.SetBool("isAirborne", !controller.collisions.below);
+        }
+
+        if(spriteRenderer != null)
+        {
+            if(directionalInput.x > 0) // Facing right
+            {
+                spriteRenderer.flipX = false;
+            }
+            else if (directionalInput.x < 0) // Facing left
+            {
+                spriteRenderer.flipX = true;
+            }
+
+            // TODO: Change approach since we might want some children not to change.
+            // Flip child gameObjects according to where the Player is facing.
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Quaternion rotation = transform.GetChild(i).localRotation;
+                rotation.y = spriteRenderer.flipX ? 180 : 0;
+                transform.GetChild(i).localRotation = rotation;
+            }
+        }
     }
 }
