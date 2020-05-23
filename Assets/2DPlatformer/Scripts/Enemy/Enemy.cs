@@ -5,11 +5,11 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
-    private int health;
+    private int health = 3;
     [SerializeField]
-    private string enemyName;
+    private string enemyName = "Enemy";
     [SerializeField]
-    private int attackDamage;
+    private int attackDamage = 1;
 
     // Start is called before the first frame update
     void Start()

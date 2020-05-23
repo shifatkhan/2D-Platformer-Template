@@ -5,11 +5,11 @@ using UnityEngine;
 public class EnemySun : Enemy
 {
     [SerializeField]
-    private float moveSpeed;
+    private float moveSpeed = 1;
     [SerializeField]
-    private float chaseDistance; // Distance where enemy will chase target.
+    private float chaseDistance = 6; // Distance where enemy will chase target.
     [SerializeField]
-    private float attackDistance; // Distance where enemy will attack target.
+    private float attackDistance = 0.8f; // Distance where enemy will attack target.
 
     [SerializeField]
     private Transform target;
@@ -23,6 +23,8 @@ public class EnemySun : Enemy
         {
             target = GameObject.FindWithTag("Player").transform;
         }
+
+        homePosition.position = gameObject.transform.position;
     }
     
     void FixedUpdate()
@@ -32,6 +34,7 @@ public class EnemySun : Enemy
 
     void CheckDistance()
     {
+        // If target is inside chase radius and outside attack radius.
         if(Vector2.Distance(target.position, transform.position) <= chaseDistance
             && Vector2.Distance(target.position, transform.position) > attackDistance)
         {
