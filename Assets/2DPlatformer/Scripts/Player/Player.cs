@@ -9,6 +9,7 @@ using UnityEngine;
 [RequireComponent (typeof (Controller2D))]
 public class Player : MonoBehaviour
 {
+    // TODO: Make Player.cs and EnemySkeleton.cs inherit from a new 2Dmovement script that has the following.
     // TODO: Change jumpHeight and timeToJumpApex to 'protected'
     public float maxJumpHeight = 4; // Max height a jump can attain.
     public float minJumpHeight = 1;

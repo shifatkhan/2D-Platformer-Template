@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySun : Enemy
+public class EnemySkeleton : MonoBehaviour
 {
     [SerializeField]
     private float moveSpeed;
@@ -10,6 +10,17 @@ public class EnemySun : Enemy
     private float chaseDistance; // Distance where enemy will chase target.
     [SerializeField]
     private float attackDistance; // Distance where enemy will attack target.
+
+    // TODO: Make Player.cs and EnemySkeleton.cs inherit from a new 2Dmovement script that has the following.
+    public float maxJumpHeight = 4; // Max height a jump can attain.
+    public float minJumpHeight = 1;
+    public float timeToJumpApex = .4f; // How long (seconds) before reaching jumpHeight.
+
+    float gravity;
+    float maxJumpVelocity;
+    float minJumpVelocity;
+    public Vector3 velocity;
+    float velocityXSmoothing;
 
     [SerializeField]
     private Transform target;
@@ -19,12 +30,17 @@ public class EnemySun : Enemy
     void Start()
     {
         // Set default target to be the Player.
-        if(target == null)
+        if (target == null)
         {
             target = GameObject.FindWithTag("Player").transform;
         }
+
+        // Calculate gravity.
+        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
     }
-    
+
     void FixedUpdate()
     {
         CheckDistance();
@@ -32,7 +48,7 @@ public class EnemySun : Enemy
 
     void CheckDistance()
     {
-        if(Vector2.Distance(target.position, transform.position) <= chaseDistance
+        if (Vector2.Distance(target.position, transform.position) <= chaseDistance
             && Vector2.Distance(target.position, transform.position) > attackDistance)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);

@@ -23,7 +23,3 @@ public class Enemy : MonoBehaviour
         
     }
 }
-
-public class Class1
-{
-}
