@@ -20,6 +20,8 @@ public class EnemySkeleton : Enemy
 
     private bool followTarget;
 
+    public bool showAttackRadius = true;
+
     public override void Start()
     {
         base.Start();
@@ -33,11 +35,10 @@ public class EnemySkeleton : Enemy
         homePosition = gameObject.transform.position;
     }
 
-    public override void FixedUpdate()
+    public override void Update()
     {
         CheckDistance();
-        base.FixedUpdate();
-        
+        base.Update();
     }
 
     /** Check if target is in radius. If so, enemy follows target until it is in attack range.
@@ -52,16 +53,24 @@ public class EnemySkeleton : Enemy
             && Vector2.Distance(target.position, transform.position) > attackDistance)
         {
             directionalInput = (target.position - transform.position).normalized;
+            SetCurrentState(EnemyState.run);
         }
         else if ((Vector2.Distance(homePosition, transform.position) <= chaseDistance && Vector2.Distance(homePosition, transform.position) > attackDistance) 
             && Vector2.Distance(target.position, transform.position) >= chaseDistance)
         {
             // Target is gone, so return to home position.
             directionalInput = (homePosition - transform.position).normalized;
+            SetCurrentState(EnemyState.run);
         }
+        //else if(Vector2.Distance(target.position, transform.position) <= attackDistance)
+        //{
+        //    // Target is in attack radius.
+        //    StartCoroutine(AttackCo());
+        //}
         else
         {
             directionalInput.x = 0;
+            SetCurrentState(EnemyState.idle);
         }
     }
 
@@ -76,9 +85,23 @@ public class EnemySkeleton : Enemy
     public IEnumerator AttackCo()
     {
         animator.SetBool("attacking1", true);
+        SetCurrentState(EnemyState.attack);
+
         yield return null; // Wait 1 frame
         animator.SetBool("attacking1", false);
-        //yield return null; // Wait 1 frame
 
+        //yield return new WaitForSeconds(.33f);
+        SetCurrentState(EnemyState.idle);
+    }
+
+    /** Debug: Draw camera's focus area
+     */
+    void OnDrawGizmos()
+    {
+        if (showAttackRadius)
+        {
+            Gizmos.color = new Color(1, 0, 0, .5f);
+            Gizmos.DrawSphere(transform.position, attackDistance);
+        }
     }
 }
