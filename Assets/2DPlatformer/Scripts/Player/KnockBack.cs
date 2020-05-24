@@ -20,6 +20,7 @@ public class KnockBack : MonoBehaviour
                 // Get Direction (by normalizing) and add force to attack (thrust)
                 Vector2 direction = enemy.transform.position - transform.position;
                 direction = direction.normalized * thrust;
+                enemy.constraints = RigidbodyConstraints2D.FreezePositionY; // so enemy doesn't fall through platform.
                 enemy.AddForce(direction, ForceMode2D.Impulse);
 
                 StartCoroutine(KnockCo(enemy));

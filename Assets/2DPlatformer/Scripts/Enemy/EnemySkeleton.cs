@@ -2,33 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/** This class takes care of the AI for Enemy Skeleton.
+ * @author ShifatKhan
+ */
 [RequireComponent(typeof(Controller2D))]
-public class EnemySkeleton : Enemy
+public class EnemySkeleton : EnemyGrounded
 {
-    [SerializeField]
-    private float moveSpeed = 1;
     [SerializeField]
     private float chaseDistance = 6; // Distance where enemy will chase target.
     [SerializeField]
     private float attackDistance = 0.8f; // Distance where enemy will attack target.
-
-    // TODO: Make Player.cs and EnemySkeleton.cs inherit from a new 2Dmovement script that has the following.
-    public float maxJumpHeight = 4; // Max height a jump can attain.
-    public float minJumpHeight = 1;
-    public float timeToJumpApex = .4f; // How long (seconds) before reaching jumpHeight.
-    float accelerationTimeAirborne = .2f;
-    float accelerationTimeGrounded = .1f;
-
-    float gravity;
-    float maxJumpVelocity;
-    float minJumpVelocity;
-    public Vector3 velocity;
-    float velocityXSmoothing;
-
-    Controller2D controller;
-    Vector2 direction;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
 
     [SerializeField]
     private Transform target;
@@ -37,11 +20,9 @@ public class EnemySkeleton : Enemy
 
     private bool followTarget;
 
-    void Start()
+    public override void Start()
     {
-        controller = GetComponent<Controller2D>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        base.Start();
 
         // Set default target to be the Player.
         if (target == null)
@@ -49,65 +30,37 @@ public class EnemySkeleton : Enemy
             target = GameObject.FindWithTag("Player").transform;
         }
 
-        // Calculate gravity.
-        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-
         homePosition = gameObject.transform.position;
     }
 
-    void Update()
+    public override void FixedUpdate()
     {
-        CalculateVelocity();
-        UpdateAnimator();
-
-        controller.Move(velocity * Time.deltaTime, direction);
-
-        // Set velocity.y to 0 if player is on ground or hit ceiling.
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
-        }
-    }
-
-    void FixedUpdate()
-    {
+        CheckDistance();
+        base.FixedUpdate();
         
     }
 
-    /** Calculate and apply X and Y velocity to player depending on player inputs.
+    /** Check if target is in radius. If so, enemy follows target until it is in attack range.
+     * If player is out of sight, enemy returns to initial position.
      */
-    void CalculateVelocity()
-    {
-        CheckDistance();
-
-        // Smooth out change in directionX (when changing direction)
-        float targetVelocityX = direction.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing,
-            (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-
-        // Apply gravity to player's velocity.
-        velocity.y += gravity * Time.deltaTime;
-    }
-
     void CheckDistance()
     {
+        // TODO: Change distance calculation to only check for X (not position)
         // If target is inside chase radius and outside attack radius.
         if (Vector2.Distance(target.position, transform.position) <= chaseDistance
             && Vector2.Distance(target.position, transform.position) > attackDistance)
         {
-            direction = (target.position - transform.position).normalized;
+            directionalInput = (target.position - transform.position).normalized;
         }
         else if ((Vector2.Distance(homePosition, transform.position) <= chaseDistance && Vector2.Distance(homePosition, transform.position) > attackDistance) 
             && Vector2.Distance(target.position, transform.position) >= chaseDistance)
         {
-            // Target is gone.
-            direction = (homePosition - transform.position).normalized;
+            // Target is gone, so return to home position.
+            directionalInput = (homePosition - transform.position).normalized;
         }
         else
         {
-            direction.x = 0;
+            directionalInput.x = 0;
         }
     }
 
@@ -126,36 +79,5 @@ public class EnemySkeleton : Enemy
         animator.SetBool("attacking1", false);
         //yield return null; // Wait 1 frame
 
-    }
-
-    /** Updates the enemy's animation.
-     */
-    void UpdateAnimator()
-    {
-        if (animator != null)
-        {
-            animator.SetBool("isRunning", direction.x != 0);
-        }
-
-        if (spriteRenderer != null)
-        {
-            if (direction.x > 0) // Facing right
-            {
-                spriteRenderer.flipX = false;
-            }
-            else if (direction.x < 0) // Facing left
-            {
-                spriteRenderer.flipX = true;
-            }
-
-            // TODO: Change approach since we might want some children not to change.
-            // Flip child gameObjects according to where the Player is facing.
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                Quaternion rotation = transform.GetChild(i).localRotation;
-                rotation.y = spriteRenderer.flipX ? 180 : 0;
-                transform.GetChild(i).localRotation = rotation;
-            }
-        }
     }
 }

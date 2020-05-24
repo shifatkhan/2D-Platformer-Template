@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/** This class takes care of the AI for Enemy Sun.
+ * @author ShifatKhan
+ */
 public class EnemySun : Enemy
 {
     [SerializeField]
@@ -14,7 +17,7 @@ public class EnemySun : Enemy
     [SerializeField]
     private Transform target;
     [SerializeField]
-    private Transform homePosition; // Place to return to if player is gone.
+    private Vector3 homePosition; // Place to return to if player is gone.
 
     void Start()
     {
@@ -24,9 +27,9 @@ public class EnemySun : Enemy
             target = GameObject.FindWithTag("Player").transform;
         }
 
-        homePosition.position = gameObject.transform.position;
+        homePosition = gameObject.transform.position;
     }
-    
+
     void FixedUpdate()
     {
         CheckDistance();

@@ -7,17 +7,8 @@ using UnityEngine;
  * @Special thanks to Sebastian Lague
  */
 [RequireComponent (typeof (Controller2D))]
-public class Player : MonoBehaviour
+public class Player : Movement2D
 {
-    // TODO: Make Player.cs and EnemySkeleton.cs inherit from a new 2Dmovement script that has the following.
-    // TODO: Change jumpHeight and timeToJumpApex to 'protected'
-    public float maxJumpHeight = 4; // Max height a jump can attain.
-    public float minJumpHeight = 1;
-    public float timeToJumpApex = .4f; // How long (seconds) before reaching jumpHeight.
-    float accelerationTimeAirborne = .2f;
-    float accelerationTimeGrounded = .1f;
-    float moveSpeed = 6;
-
     public bool wallJumpingEnabled = true; // Enable/Disable the ability to walljump.
     bool wallSliding;
     int wallDirX;
@@ -30,46 +21,14 @@ public class Player : MonoBehaviour
     public float wallStickTime = .25f; // Time after which player gets off the wall when no jump inputs were given (instead just getting off)
     float timeToWallUnstick;
 
-    float gravity;
-    float maxJumpVelocity;
-    float minJumpVelocity;
-    public Vector3 velocity;
-    float velocityXSmoothing;
-    
-    Controller2D controller;
-    Vector2 directionalInput;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
-    
-    void Start()
-    {
-        controller = GetComponent<Controller2D>();
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        // Calculate gravity.
-        gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
-        maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
-        minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
-    }
-
     // TODO: Put physics in FixedUpdate()
-    private void Update()
+    public override void FixedUpdate()
     {
-        CalculateVelocity();
-        UpdateAnimator();
+        base.FixedUpdate();
 
         if (wallJumpingEnabled)
         {
             HandleWallSliding();
-        }
-
-        controller.Move(velocity * Time.deltaTime, directionalInput);
-
-        // Set velocity.y to 0 if player is on ground or hit ceiling.
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
         }
     }
 
@@ -123,19 +82,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    /** Calculate and apply X and Y velocity to player depending on player inputs.
-     */
-    void CalculateVelocity()
-    {
-        // Smooth out change in directionX (when changing direction)
-        float targetVelocityX = directionalInput.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing,
-            (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-
-        // Apply gravity to player's velocity.
-        velocity.y += gravity * Time.deltaTime;
-    }
-
     /** Check wallsliding state and apply jumping physics to player.
      */
     void HandleWallSliding()
@@ -185,38 +131,5 @@ public class Player : MonoBehaviour
         animator.SetBool("attacking1", false);
         //yield return null; // Wait 1 frame
 
-    }
-
-    /** Updates the player's animation.
-     */
-    void UpdateAnimator()
-    {
-        if(animator != null)
-        {
-            animator.SetBool("isRunning", directionalInput.x != 0);
-
-            animator.SetBool("isAirborne", !controller.collisions.below);
-        }
-
-        if(spriteRenderer != null)
-        {
-            if(directionalInput.x > 0) // Facing right
-            {
-                spriteRenderer.flipX = false;
-            }
-            else if (directionalInput.x < 0) // Facing left
-            {
-                spriteRenderer.flipX = true;
-            }
-
-            // TODO: Change approach since we might want some children not to change.
-            // Flip child gameObjects according to where the Player is facing.
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                Quaternion rotation = transform.GetChild(i).localRotation;
-                rotation.y = spriteRenderer.flipX ? 180 : 0;
-                transform.GetChild(i).localRotation = rotation;
-            }
-        }
     }
 }
