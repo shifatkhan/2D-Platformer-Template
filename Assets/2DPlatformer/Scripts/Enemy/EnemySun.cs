@@ -8,8 +8,6 @@ using UnityEngine;
 public class EnemySun : Enemy
 {
     [SerializeField]
-    private float moveSpeed = 1;
-    [SerializeField]
     private float chaseDistance = 6; // Distance where enemy will chase target.
     [SerializeField]
     private float attackDistance = 0.8f; // Distance where enemy will attack target.
@@ -19,7 +17,7 @@ public class EnemySun : Enemy
     [SerializeField]
     private Vector3 homePosition; // Place to return to if player is gone.
 
-    void Start()
+    public override void Start()
     {
         // Set default target to be the Player.
         if(target == null)
@@ -30,7 +28,7 @@ public class EnemySun : Enemy
         homePosition = gameObject.transform.position;
     }
 
-    void FixedUpdate()
+    public override void FixedUpdate()
     {
         CheckDistance();
     }

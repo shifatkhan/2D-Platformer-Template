@@ -182,13 +182,14 @@ MonoBehaviour:
   maxJumpHeight: 2.5
   minJumpHeight: 0.5
   timeToJumpApex: 0.35
+  moveSpeed: 6
+  velocity: {x: 0, y: 0, z: 0}
   wallJumpingEnabled: 1
   wallJumpClimb: {x: 7.5, y: 16}
   wallJumpOff: {x: 8.5, y: 7}
   wallLeap: {x: 18, y: 17}
   wallSlideSpeedMax: 3
   wallStickTime: 0.1
-  velocity: {x: 0, y: 0, z: 0}
 --- !u!1 &7824327364627493788
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +249,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 0.3659799, y: 0.6026416}
       - {x: -0.18783092, y: 0.4808898}
-      - {x: 0.24480319, y: 0.008808374}
+      - {x: 0.11559439, y: -0.48320293}
       - {x: 0.11345148, y: -0.4900453}
       - {x: 0.6378734, y: -0.25238013}
       - {x: 0.7444422, y: 0.23396492}

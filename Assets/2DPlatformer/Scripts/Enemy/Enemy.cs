@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/** Class that...
+/** This class holds basic data for an Enemy object.
  * @author ShifatKhan
  */
-public class Enemy : MonoBehaviour
+public class Enemy : Movement2D
 {
     [SerializeField]
     private int health = 3;
@@ -13,16 +13,4 @@ public class Enemy : MonoBehaviour
     private string enemyName = "Enemy";
     [SerializeField]
     private int attackDamage = 1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

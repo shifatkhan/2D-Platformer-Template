@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @author ShifatKhan
+ */
 public class KnockBack : MonoBehaviour
 {
     public float thrust;
@@ -28,13 +31,13 @@ public class KnockBack : MonoBehaviour
         }
     }
 
-    private IEnumerator KnockCo(Rigidbody2D other)
+    private IEnumerator KnockCo(Rigidbody2D enemy)
     {
-        if (other != null)
+        if (enemy != null)
         {
             yield return new WaitForSeconds(knockTime);
-            other.velocity = Vector2.zero;
-            other.isKinematic = true;
+            enemy.velocity = Vector2.zero;
+            enemy.isKinematic = true;
         }
     }
 }

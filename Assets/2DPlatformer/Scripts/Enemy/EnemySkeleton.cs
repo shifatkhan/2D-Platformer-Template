@@ -6,7 +6,7 @@ using UnityEngine;
  * @author ShifatKhan
  */
 [RequireComponent(typeof(Controller2D))]
-public class EnemySkeleton : EnemyGrounded
+public class EnemySkeleton : Enemy
 {
     [SerializeField]
     private float chaseDistance = 6; // Distance where enemy will chase target.
@@ -45,7 +45,8 @@ public class EnemySkeleton : EnemyGrounded
      */
     void CheckDistance()
     {
-        // TODO: Change distance calculation to only check for X (not position)
+        // TODO: Change distance calculation to only check for X (not position) - fixes: skeleton keeps walking even when near home position but on a different Y level.
+        //      OR make it so skeleton can't fall off ledge.
         // If target is inside chase radius and outside attack radius.
         if (Vector2.Distance(target.position, transform.position) <= chaseDistance
             && Vector2.Distance(target.position, transform.position) > attackDistance)

@@ -5,6 +5,7 @@ using UnityEngine;
 /** This class takes care of calculating the gravity and movement of a 2d Platformer entity.
  * This is mostly used for beings that are grounded (the player, humans, skeletons, etc.)
  * Not for flying entities e.g.: birds, helicopters, etc.
+ * @author ShifatKhan
  */
 [RequireComponent(typeof(Controller2D))]
 public class Movement2D : MonoBehaviour
