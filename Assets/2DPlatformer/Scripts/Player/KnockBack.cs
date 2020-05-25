@@ -17,14 +17,13 @@ public class KnockBack : MonoBehaviour
             Rigidbody2D enemy = other.GetComponent<Rigidbody2D>();
             if(enemy != null)
             {
-                // Make rigidbody dynamic so we can add a knock back force.
-                enemy.isKinematic = false;
+                enemy.GetComponent<Enemy>().SetCurrentState(EnemyState.stagger);
 
-                // Get Direction (by normalizing) and add force to attack (thrust)
+                // Get Direction (by normalizing) and multiply the attack with thrust power.
                 Vector2 direction = enemy.transform.position - transform.position;
                 direction = direction.normalized * thrust;
-                enemy.constraints = RigidbodyConstraints2D.FreezePositionY; // so enemy doesn't fall through platform.
-                enemy.AddForce(direction, ForceMode2D.Impulse);
+
+                enemy.GetComponent<Enemy>().ApplyForce(direction);
 
                 StartCoroutine(KnockCo(enemy));
             }
@@ -36,8 +35,8 @@ public class KnockBack : MonoBehaviour
         if (enemy != null)
         {
             yield return new WaitForSeconds(knockTime);
-            enemy.velocity = Vector2.zero;
-            enemy.isKinematic = true;
+            enemy.GetComponent<Enemy>().ApplyForce(Vector3.zero);
+            enemy.GetComponent<Enemy>().SetCurrentState(EnemyState.idle);
         }
     }
 }

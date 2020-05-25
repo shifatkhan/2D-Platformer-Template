@@ -8,7 +8,7 @@ using UnityEngine;
 public enum EnemyState
 {
     idle,
-    run,
+    move, // Indicates state of when enemy is moving, which includes flying, running, walking, etc.
     attack,
     stagger
 }
@@ -24,9 +24,15 @@ public class Enemy : Movement2D
     [SerializeField] // TODO: remove serialized
     protected EnemyState currentState;
 
+    public override void Start()
+    {
+        base.Start();
+        SetCurrentState(EnemyState.idle);
+    }
+
     public void SetCurrentState(EnemyState newState)
     {
-        if (currentState != newState)
+        //if (currentState != newState)
             currentState = newState;
     }
 }

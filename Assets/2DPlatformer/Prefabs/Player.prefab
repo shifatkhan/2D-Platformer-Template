@@ -265,5 +265,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0494998c8006f4495a4a4eaf018010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrust: 5
+  thrust: 10
   knockTime: 0.2

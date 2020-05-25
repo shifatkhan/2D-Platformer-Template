@@ -78,9 +78,14 @@ public class Movement2D : MonoBehaviour
         }
     }
 
+    public void ApplyForce(Vector3 direction)
+    {
+        velocity = direction;
+    }
+
     /** Updates animation.
      */
-    protected void UpdateAnimator()
+    public virtual void UpdateAnimator()
     {
         if (animator != null)
         {
