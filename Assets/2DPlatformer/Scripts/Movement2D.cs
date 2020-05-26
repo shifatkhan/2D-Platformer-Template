@@ -7,6 +7,14 @@ using UnityEngine;
  * Not for flying entities e.g.: birds, helicopters, etc.
  * @author ShifatKhan
  */
+public enum State
+{
+    idle,
+    move, // Indicates state of when enemy is moving, which includes flying, running, walking, etc.
+    attack,
+    stagger
+}
+
 [RequireComponent(typeof(Controller2D))]
 public class Movement2D : MonoBehaviour
 {
@@ -29,7 +37,10 @@ public class Movement2D : MonoBehaviour
     protected Vector2 directionalInput;
     protected Animator animator;
     protected SpriteRenderer spriteRenderer;
-    
+
+    [SerializeField] // TODO: remove serialized
+    protected State currentState;
+
     public virtual void Start()
     {
         controller = GetComponent<Controller2D>();
@@ -40,6 +51,8 @@ public class Movement2D : MonoBehaviour
         gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
         maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
         minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
+
+        SetCurrentState(State.idle);
     }
     
     public virtual void Update()
@@ -78,9 +91,26 @@ public class Movement2D : MonoBehaviour
         }
     }
 
-    public void ApplyForce(Vector3 direction)
+    public virtual void ApplyForce(Vector3 direction)
     {
         velocity = direction;
+    }
+
+    public virtual void KnockBack(float knockTime)
+    {
+        StartCoroutine(KnockBackCo(knockTime));
+    }
+
+    public virtual IEnumerator KnockBackCo(float knockTime)
+    {
+        yield return new WaitForSeconds(knockTime);
+        SetCurrentState(State.idle);
+    }
+
+    public void SetCurrentState(State newState)
+    {
+        if (currentState != newState)
+            currentState = newState;
     }
 
     /** Updates animation.
@@ -92,6 +122,8 @@ public class Movement2D : MonoBehaviour
             animator.SetBool("isRunning", directionalInput.x != 0);
 
             animator.SetBool("isAirborne", !controller.collisions.below);
+
+            animator.SetBool("isStaggered", currentState == State.stagger);
         }
 
         if (spriteRenderer != null)

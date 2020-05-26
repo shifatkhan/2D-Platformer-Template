@@ -6,7 +6,6 @@ using UnityEngine;
  * @author ShifatKhan
  * @Special thanks to Sebastian Lague
  */
-[RequireComponent (typeof (Controller2D))]
 public class Player : Movement2D
 {
     public bool wallJumpingEnabled = true; // Enable/Disable the ability to walljump.
@@ -20,8 +19,7 @@ public class Player : Movement2D
     public float wallSlideSpeedMax = 3; // Velocity at which we will descend a wall slide.
     public float wallStickTime = .25f; // Time after which player gets off the wall when no jump inputs were given (instead just getting off)
     float timeToWallUnstick;
-
-    // TODO: Put physics in FixedUpdate()
+    
     public override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -126,10 +124,12 @@ public class Player : Movement2D
 
     public IEnumerator AttackCo()
     {
-        animator.SetBool("attacking1", true);
-        yield return null; // Wait 1 frame
-        animator.SetBool("attacking1", false);
-        //yield return null; // Wait 1 frame
-
+        if(currentState != State.stagger && currentState != State.attack)
+        {
+            animator.SetBool("attacking1", true);
+            yield return null; // Wait 1 frame
+            animator.SetBool("attacking1", false);
+            //yield return null; // Wait 1 frame
+        }
     }
 }

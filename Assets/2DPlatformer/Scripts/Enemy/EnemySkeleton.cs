@@ -35,7 +35,7 @@ public class EnemySkeleton : Enemy
         homePosition = gameObject.transform.position;
     }
 
-    // TODO: Separate update and fixed update functions (doing both in CheckDistance)
+    // TODO: Separate update and fixed update functions (currently doing both in CheckDistance)
     public override void Update()
     {
         //CheckDistance();
@@ -58,20 +58,21 @@ public class EnemySkeleton : Enemy
         // If target is inside chase radius and outside attack radius.
         if (Vector2.Distance(target.position, transform.position) <= chaseDistance
             && Vector2.Distance(target.position, transform.position) > attackDistance
-            && currentState != EnemyState.stagger && currentState != EnemyState.attack)
+            && currentState != State.stagger && currentState != State.attack)
         {
             directionalInput = (target.position - transform.position).normalized;
-            SetCurrentState(EnemyState.move);
+            SetCurrentState(State.move);
         }
-        //else if ((Vector2.Distance(homePosition, transform.position) <= chaseDistance && Vector2.Distance(homePosition, transform.position) > attackDistance)
-        //    && Vector2.Distance(target.position, transform.position) >= chaseDistance)
-        //{
-        //    // Target is gone, so return to home position.
-        //    directionalInput = (homePosition - transform.position).normalized;
-        //    SetCurrentState(EnemyState.run);
-        //}
+        else if ((Vector2.Distance(homePosition, transform.position) <= chaseDistance && Vector2.Distance(homePosition, transform.position) > attackDistance)
+            && Vector2.Distance(target.position, transform.position) >= chaseDistance
+            && currentState != State.stagger && currentState != State.attack)
+        {
+            // Target is gone, so return to home position.
+            directionalInput = (homePosition - transform.position).normalized;
+            SetCurrentState(State.move);
+        }
         else if (Vector2.Distance(target.position, transform.position) <= attackDistance
-            && currentState != EnemyState.stagger)
+            && currentState != State.stagger && currentState != State.attack)
         {
             // TODO: Make enemy stop moving while attacking.
             // Target is in attack radius.
@@ -81,7 +82,7 @@ public class EnemySkeleton : Enemy
         else
         {
             directionalInput.x = 0;
-            SetCurrentState(EnemyState.idle);
+            SetCurrentState(State.idle);
         }
     }
 
@@ -96,22 +97,12 @@ public class EnemySkeleton : Enemy
     public IEnumerator AttackCo()
     {
         animator.SetBool("attacking1", true);
-        SetCurrentState(EnemyState.attack);
-        
-        yield return new WaitForSeconds(1.0f);
+        SetCurrentState(State.attack);
+        yield return null;
         animator.SetBool("attacking1", false);
 
         //yield return new WaitForSeconds(.33f);
-        //SetCurrentState(EnemyState.idle);
-    }
-
-    public override void UpdateAnimator()
-    {
-        base.UpdateAnimator();
-        if(animator != null)
-        {
-            animator.SetBool("isStaggered", currentState == EnemyState.stagger);
-        }
+        SetCurrentState(State.move);
     }
 
     /** Debug: Draw skelton's attack radius.
