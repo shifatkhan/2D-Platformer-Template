@@ -18,10 +18,8 @@ public class KnockBack : MonoBehaviour
             // Get Direction (by normalizing) and multiply the attack with thrust power.
             Vector2 direction = other.transform.position - transform.position;
             direction = direction.normalized * thrust;
-
-            other.GetComponent<Movement2D>().ApplyForce(direction); // TODO: Change this to accomodate flying enemies.
-            other.GetComponent<Movement2D>().SetCurrentState(State.stagger);
-            other.GetComponent<Movement2D>().KnockBack(knockTime);
+            
+            other.GetComponent<Movement2D>().KnockBack(direction, knockTime);
         }
     }
 

@@ -8,18 +8,20 @@ using UnityEngine;
  */
 public class Player : Movement2D
 {
-    public bool wallJumpingEnabled = true; // Enable/Disable the ability to walljump.
-    bool wallSliding;
-    int wallDirX;
+    [SerializeField] private bool wallJumpingEnabled = true; // Enable/Disable the ability to walljump.
+    [SerializeField] private bool wallSliding;
+    private int wallDirX;
 
-    public Vector2 wallJumpClimb; // For climbing a wall (small jumps)
-    public Vector2 wallJumpOff; // For getting off a wall (small jump off the wall to the ground)
-    public Vector2 wallLeap; // For jumping from wall to wall (big/long jump)
+    [SerializeField] private Vector2 wallJumpClimb = new Vector2(7.5f, 16); // For climbing a wall (small jumps)
+    [SerializeField] private Vector2 wallJumpOff = new Vector2(8.5f, 7); // For getting off a wall (small jump off the wall to the ground)
+    [SerializeField] private Vector2 wallLeap = new Vector2(18, 17); // For jumping from wall to wall (big/long jump)
 
-    public float wallSlideSpeedMax = 3; // Velocity at which we will descend a wall slide.
-    public float wallStickTime = .25f; // Time after which player gets off the wall when no jump inputs were given (instead just getting off)
-    float timeToWallUnstick;
-    
+    [SerializeField] private float wallSlideSpeedMax = 3; // Velocity at which we will descend a wall slide.
+    [SerializeField] private float wallStickTime = .1f; // Time after which player gets off the wall when no jump inputs were given (instead just getting off)
+    [SerializeField] private float timeToWallUnstick;
+
+    [SerializeField] private float attackSpeed = 0.5f;
+
     public override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -122,14 +124,24 @@ public class Player : Movement2D
         }
     }
 
-    public IEnumerator AttackCo()
+    public IEnumerator Attack1Co()
     {
         if(currentState != State.stagger && currentState != State.attack)
         {
-            animator.SetBool("attacking1", true);
-            yield return null; // Wait 1 frame
-            animator.SetBool("attacking1", false);
-            //yield return null; // Wait 1 frame
+            animator.SetTrigger("attack1");
+            SetCurrentState(State.attack);
+
+            yield return new WaitForSeconds(attackSpeed);
+
+            SetCurrentState(State.idle);
+        }
+    }
+
+    public override void UpdateState()
+    {
+        if (currentState != State.attack)
+        {
+            base.UpdateState();
         }
     }
 }

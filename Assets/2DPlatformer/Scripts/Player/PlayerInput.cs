@@ -38,7 +38,7 @@ public class PlayerInput : MonoBehaviour
         // TODO: Get player movement input if not attacking. Maybe make player stop moving when attacking
         if (Input.GetButtonDown("Attack1"))
         {
-            StartCoroutine(player.AttackCo());
+            StartCoroutine(player.Attack1Co());
         }
     }
 }

@@ -183,13 +183,16 @@ MonoBehaviour:
   minJumpHeight: 0.5
   timeToJumpApex: 0.35
   moveSpeed: 6
-  velocity: {x: 0, y: 0, z: 0}
+  currentState: 0
   wallJumpingEnabled: 1
+  wallSliding: 0
   wallJumpClimb: {x: 7.5, y: 16}
   wallJumpOff: {x: 8.5, y: 7}
   wallLeap: {x: 18, y: 17}
   wallSlideSpeedMax: 3
   wallStickTime: 0.1
+  timeToWallUnstick: 0
+  attackSpeed: 0.5
 --- !u!1 &7824327364627493788
 GameObject:
   m_ObjectHideFlags: 0

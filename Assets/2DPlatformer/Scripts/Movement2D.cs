@@ -19,18 +19,19 @@ public enum State
 public class Movement2D : MonoBehaviour
 {
     // TODO: Change jumpHeight and timeToJumpApex to 'protected'
-    public float maxJumpHeight = 4; // Max height a jump can attain.
-    public float minJumpHeight = 1;
-    public float timeToJumpApex = .4f; // How long (seconds) before reaching jumpHeight.
+    [SerializeField] protected float maxJumpHeight = 2.5f; // Max height a jump can attain.
+    [SerializeField] protected float minJumpHeight = 0.5f;
+    [SerializeField] protected float timeToJumpApex = .35f; // How long (seconds) before reaching jumpHeight.
+
     protected float accelerationTimeAirborne = .2f;
     protected float accelerationTimeGrounded = .1f;
 
-    public float moveSpeed = 6;
+    [SerializeField] protected float moveSpeed = 6;
 
     protected float gravity;
     protected float maxJumpVelocity;
     protected float minJumpVelocity;
-    public Vector3 velocity;
+    protected Vector3 velocity;
     protected float velocityXSmoothing;
 
     protected Controller2D controller;
@@ -58,6 +59,7 @@ public class Movement2D : MonoBehaviour
     public virtual void Update()
     {
         UpdateAnimator();
+        UpdateState();
     }
     
     public virtual void FixedUpdate()
@@ -96,8 +98,10 @@ public class Movement2D : MonoBehaviour
         velocity = direction;
     }
 
-    public virtual void KnockBack(float knockTime)
+    public virtual void KnockBack(Vector3 direction, float knockTime)
     {
+        ApplyForce(direction);
+        SetCurrentState(State.stagger);
         StartCoroutine(KnockBackCo(knockTime));
     }
 
@@ -111,6 +115,11 @@ public class Movement2D : MonoBehaviour
     {
         if (currentState != newState)
             currentState = newState;
+    }
+
+    public virtual void UpdateState()
+    {
+        SetCurrentState(directionalInput.x != 0 ? State.move : State.idle);
     }
 
     /** Updates animation.

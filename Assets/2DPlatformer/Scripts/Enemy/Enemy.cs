@@ -7,10 +7,8 @@ using UnityEngine;
  */
 public class Enemy : Movement2D
 {
-    [SerializeField]
-    private int health = 3;
-    [SerializeField]
-    private string enemyName = "Enemy";
-    [SerializeField]
-    private int attackDamage = 1;
+    [SerializeField] protected int health = 3;
+    [SerializeField] protected string enemyName = "Enemy";
+    [SerializeField] protected int attackDamage = 1;
+    [SerializeField] protected float attackSpeed = 0f;
 }
