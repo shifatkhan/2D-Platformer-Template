@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 5
   knockTime: 0.2
-  damage: 0
+  damage: 1
 --- !u!1 &6361138616171045938
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,9 +242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57156bc8baae8504eb32d2abfa43f373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumpHeight: 4
-  minJumpHeight: 1
-  timeToJumpApex: 0.4
   moveSpeed: 1
   currentState: 0
   health: 3
@@ -272,7 +269,6 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 256
-  dstBetweenRays: 0.1
   horizontalRayCount: 0
   verticalRayCount: 0
   horizontalRaySpacing: 0

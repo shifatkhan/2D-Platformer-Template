@@ -159,7 +159,6 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 256
-  dstBetweenRays: 0.1
   horizontalRayCount: 4
   verticalRayCount: 4
   horizontalRaySpacing: 0
@@ -179,20 +178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc75ae41f82f5244bf8c6163ce0ec55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxJumpHeight: 2.5
-  minJumpHeight: 0.5
-  timeToJumpApex: 0.35
   moveSpeed: 6
   currentState: 0
   wallJumpingEnabled: 1
-  wallSliding: 0
-  wallJumpClimb: {x: 7.5, y: 16}
-  wallJumpOff: {x: 8.5, y: 7}
-  wallLeap: {x: 18, y: 17}
-  wallSlideSpeedMax: 3
-  wallStickTime: 0.1
-  timeToWallUnstick: 0
-  attackSpeed: 0.5
+  currentHealth: {fileID: 11400000, guid: 8f19276d46a2c1846a0e63ffb695224f, type: 2}
+  playerHealthEvent: {fileID: 11400000, guid: f75bdf27a9b082042867327a1148da97, type: 2}
 --- !u!1 &7824327364627493788
 GameObject:
   m_ObjectHideFlags: 0
