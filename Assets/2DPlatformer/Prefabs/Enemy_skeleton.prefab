@@ -76,6 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 5
   knockTime: 0.2
+  damage: 0
 --- !u!1 &6361138616171045938
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,11 +246,12 @@ MonoBehaviour:
   minJumpHeight: 1
   timeToJumpApex: 0.4
   moveSpeed: 1
-  velocity: {x: 0, y: 0, z: 0}
+  currentState: 0
   health: 3
+  maxHealth: {fileID: 11400000, guid: a8d0d5261e6ba6a499497ccc3ec00351, type: 2}
   enemyName: Skeleton
   attackDamage: 1
-  currentState: 0
+  attackSpeed: 0
   chaseDistance: 6
   attackDistance: 0.8
   target: {fileID: 0}

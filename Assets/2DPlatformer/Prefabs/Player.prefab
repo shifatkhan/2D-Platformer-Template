@@ -270,3 +270,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 10
   knockTime: 0.2
+  damage: 1

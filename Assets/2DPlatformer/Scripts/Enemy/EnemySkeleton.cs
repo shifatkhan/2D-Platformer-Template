@@ -41,7 +41,9 @@ public class EnemySkeleton : Enemy
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        CheckDistance();
+
+        if(currentState != State.dead && currentState != State.stagger)
+            CheckDistance();
     }
 
     /** Check if target is in radius. If so, enemy follows target until it is in attack range.
@@ -53,14 +55,12 @@ public class EnemySkeleton : Enemy
         //      OR make it so skeleton can't fall off ledge.
         // If target is inside chase radius and outside attack radius.
         if (Vector2.Distance(target.position, transform.position) <= chaseDistance
-            && Vector2.Distance(target.position, transform.position) > attackDistance
-            && currentState != State.stagger)
+            && Vector2.Distance(target.position, transform.position) > attackDistance)
         {
             directionalInput = (target.position - transform.position).normalized;
         }
         else if ((Vector2.Distance(homePosition, transform.position) <= chaseDistance && Vector2.Distance(homePosition, transform.position) > attackDistance)
-            && Vector2.Distance(target.position, transform.position) >= chaseDistance
-            && currentState != State.stagger)
+            && Vector2.Distance(target.position, transform.position) >= chaseDistance)
         {
             // Target is gone, so return to home position.
             directionalInput = (homePosition - transform.position).normalized;
@@ -88,7 +88,7 @@ public class EnemySkeleton : Enemy
 
     public IEnumerator AttackCo()
     {
-        if (currentState != State.stagger && currentState != State.attack)
+        if (currentState != State.attack)
         {
             animator.SetTrigger("attack1");
             SetCurrentState(State.attack);

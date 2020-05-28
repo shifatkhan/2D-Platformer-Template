@@ -12,16 +12,16 @@ public enum State
     idle,
     move, // Indicates state of when enemy is moving, which includes flying, running, walking, etc.
     attack,
-    stagger
+    stagger,
+    dead
 }
 
 [RequireComponent(typeof(Controller2D))]
 public class Movement2D : MonoBehaviour
 {
-    // TODO: Change jumpHeight and timeToJumpApex to 'protected'
-    [SerializeField] protected float maxJumpHeight = 2.5f; // Max height a jump can attain.
-    [SerializeField] protected float minJumpHeight = 0.5f;
-    [SerializeField] protected float timeToJumpApex = .35f; // How long (seconds) before reaching jumpHeight.
+    protected float maxJumpHeight = 2.5f; // Max height a jump can attain.
+    protected float minJumpHeight = 0.5f;
+    protected float timeToJumpApex = .35f; // How long (seconds) before reaching jumpHeight.
 
     protected float accelerationTimeAirborne = .2f;
     protected float accelerationTimeGrounded = .1f;

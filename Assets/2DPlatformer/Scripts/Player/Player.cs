@@ -2,25 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/** Class that handles player physics.
+/** Class that handles player physics and stats.
  * @author ShifatKhan
  * @Special thanks to Sebastian Lague
  */
 public class Player : Movement2D
 {
     [SerializeField] private bool wallJumpingEnabled = true; // Enable/Disable the ability to walljump.
-    [SerializeField] private bool wallSliding;
+    private bool wallSliding;
     private int wallDirX;
 
-    [SerializeField] private Vector2 wallJumpClimb = new Vector2(7.5f, 16); // For climbing a wall (small jumps)
-    [SerializeField] private Vector2 wallJumpOff = new Vector2(8.5f, 7); // For getting off a wall (small jump off the wall to the ground)
-    [SerializeField] private Vector2 wallLeap = new Vector2(18, 17); // For jumping from wall to wall (big/long jump)
+    private Vector2 wallJumpClimb = new Vector2(7.5f, 16); // For climbing a wall (small jumps)
+    private Vector2 wallJumpOff = new Vector2(8.5f, 7); // For getting off a wall (small jump off the wall to the ground)
+    private Vector2 wallLeap = new Vector2(18, 17); // For jumping from wall to wall (big/long jump)
 
-    [SerializeField] private float wallSlideSpeedMax = 3; // Velocity at which we will descend a wall slide.
-    [SerializeField] private float wallStickTime = .1f; // Time after which player gets off the wall when no jump inputs were given (instead just getting off)
-    [SerializeField] private float timeToWallUnstick;
+    private float wallSlideSpeedMax = 3; // Velocity at which we will descend a wall slide.
+    private float wallStickTime = .1f; // Time after which player gets off the wall when no jump inputs were given (instead just getting off)
+    private float timeToWallUnstick;
 
-    [SerializeField] private float attackSpeed = 0.5f;
+    private float attackSpeed = 0.5f;
+    
+    [SerializeField] protected FloatVariable currentHealth;
+    [SerializeField] protected GameEvent playerHealthEvent;
+
+    public override void Start()
+    {
+        base.Start();
+    }
 
     public override void FixedUpdate()
     {
@@ -135,6 +143,27 @@ public class Player : Movement2D
 
             SetCurrentState(State.idle);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth.RuntimeValue -= damage;
+        playerHealthEvent.Raise();
+
+        if (currentHealth.RuntimeValue <= 0)
+        {
+            animator.SetTrigger("dead");
+            gameObject.SetActive(false);
+        }
+    }
+
+     /** We don't 'destroy' since it will call the garbage collector = inefficient.
+     * Instead, we set the gameObject to 'inactive'.
+     */
+    public void Die()
+    {
+        SetCurrentState(State.dead);
+        gameObject.SetActive(false);
     }
 
     public override void UpdateState()
