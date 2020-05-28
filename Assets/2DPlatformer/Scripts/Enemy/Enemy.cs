@@ -7,8 +7,32 @@ using UnityEngine;
  */
 public class Enemy : Movement2D
 {
-    [SerializeField] protected int health = 3;
+    [SerializeField] protected float health = 3;
+    [SerializeField] protected FloatVariable maxHealth;
     [SerializeField] protected string enemyName = "Enemy";
     [SerializeField] protected int attackDamage = 1;
     [SerializeField] protected float attackSpeed = 0f;
+
+    public override void Start()
+    {
+        base.Start();
+        health = maxHealth.InitialValue;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if(health <= 0)
+        {
+            animator.SetTrigger("dead");
+        }
+    }
+
+    public void Die()
+    {
+        // We don't 'destroy' since it will call the garbage collector = inefficient.
+        // Instead, we set the gameObject to 'inactive'.
+        SetCurrentState(State.dead);
+        gameObject.SetActive(false);
+    }
 }

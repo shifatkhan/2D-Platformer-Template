@@ -12,7 +12,8 @@ public enum State
     idle,
     move, // Indicates state of when enemy is moving, which includes flying, running, walking, etc.
     attack,
-    stagger
+    stagger,
+    dead
 }
 
 [RequireComponent(typeof(Controller2D))]

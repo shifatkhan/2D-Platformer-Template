@@ -9,6 +9,7 @@ public class KnockBack : MonoBehaviour
 {
     public float thrust;
     public float knockTime;
+    public float damage;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -20,16 +21,15 @@ public class KnockBack : MonoBehaviour
             direction = direction.normalized * thrust;
             
             other.GetComponent<Movement2D>().KnockBack(direction, knockTime);
+
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                other.GetComponent<Enemy>().TakeDamage(damage);
+            }
+            //else if (other.gameObject.CompareTag("Enemy"))
+            //{
+            //    other.GetComponent<Player>().TakeDamage(damage);
+            //}
         }
     }
-
-    //private IEnumerator KnockCo(Rigidbody2D enemy)
-    //{
-    //    if (enemy != null)
-    //    {
-    //        yield return new WaitForSeconds(knockTime);
-    //        enemy.GetComponent<Enemy>().ApplyForce(Vector3.zero);
-    //        enemy.GetComponent<Enemy>().SetCurrentState(EnemyState.idle);
-    //    }
-    //}
 }
