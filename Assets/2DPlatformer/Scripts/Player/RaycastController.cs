@@ -10,13 +10,12 @@ using UnityEngine;
 public class RaycastController : MonoBehaviour
 {
     // TODO: Change visibility of variables.
+    [SerializeField] protected LayerMask collisionMask; // Which objects to collide with.
 
-    public LayerMask collisionMask; // Which objects to collide with.
-
-    public const float skinWidth = .015f;
+    protected const float skinWidth = .015f;
 
     // TODO: Make this a CONSTANT
-    public float dstBetweenRays = .1f; // Specify spacing between each rays.
+    protected float dstBetweenRays = .1f; // Specify spacing between each rays.
 
     [HideInInspector]
     public int horizontalRayCount;

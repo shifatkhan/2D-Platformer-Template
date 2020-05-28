@@ -15,7 +15,6 @@ public class KnockBack : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Knocked: " + other);
             // Get Direction (by normalizing) and multiply the attack with thrust power.
             Vector2 direction = other.transform.position - transform.position;
             direction = direction.normalized * thrust;
@@ -26,10 +25,10 @@ public class KnockBack : MonoBehaviour
             {
                 other.GetComponent<Enemy>().TakeDamage(damage);
             }
-            //else if (other.gameObject.CompareTag("Enemy"))
-            //{
-            //    other.GetComponent<Player>().TakeDamage(damage);
-            //}
+            else if (other.gameObject.CompareTag("Player"))
+            {
+                other.GetComponent<Player>().TakeDamage(damage);
+            }
         }
     }
 }

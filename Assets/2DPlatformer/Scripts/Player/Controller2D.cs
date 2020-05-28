@@ -15,8 +15,10 @@ public class Controller2D : RaycastController
     
     [HideInInspector]
     public CollisionInfo collisions;
+
     public bool showRaycast = true; // Enable/Disable raycast debugging
 
+    [HideInInspector]
     public Vector2 playerInput; // Stores player input.
 
     public override void Start()

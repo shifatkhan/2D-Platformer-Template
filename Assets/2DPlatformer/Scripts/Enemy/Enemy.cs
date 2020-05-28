@@ -28,10 +28,11 @@ public class Enemy : Movement2D
         }
     }
 
+    /** We don't 'destroy' since it will call the garbage collector = inefficient.
+     * Instead, we set the gameObject to 'inactive'.
+     */
     public void Die()
     {
-        // We don't 'destroy' since it will call the garbage collector = inefficient.
-        // Instead, we set the gameObject to 'inactive'.
         SetCurrentState(State.dead);
         gameObject.SetActive(false);
     }
