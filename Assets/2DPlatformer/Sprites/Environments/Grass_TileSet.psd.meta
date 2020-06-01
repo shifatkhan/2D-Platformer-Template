@@ -341,7 +341,7 @@ TextureImporter:
       name: GrassSlopeLeft
       rect:
         serializedVersion: 2
-        x: 256
+        x: 254
         y: 448
         width: 64
         height: 64
@@ -970,7 +970,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 010b074ccd69ab74f9c9237d6dcd7440
     internalID: 0
     vertices: []
     indices: 

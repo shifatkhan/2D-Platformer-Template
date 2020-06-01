@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1116900248984994}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.14, y: 3.39, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children:
   - {fileID: 4470042807433466222}
   m_Father: {fileID: 0}
@@ -181,6 +181,7 @@ MonoBehaviour:
   moveSpeed: 6
   currentState: 0
   wallJumpingEnabled: 1
+  attackSpeed: 0.5
   currentHealth: {fileID: 11400000, guid: 8f19276d46a2c1846a0e63ffb695224f, type: 2}
   playerHealthEvent: {fileID: 11400000, guid: f75bdf27a9b082042867327a1148da97, type: 2}
 --- !u!1 &7824327364627493788
