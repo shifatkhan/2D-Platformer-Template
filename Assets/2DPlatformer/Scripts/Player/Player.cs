@@ -20,7 +20,7 @@ public class Player : Movement2D
     private float wallStickTime = .1f; // Time after which player gets off the wall when no jump inputs were given (instead just getting off)
     private float timeToWallUnstick;
 
-    private float attackSpeed = 0.5f;
+    [SerializeField] private float attackSpeed = 0.5f;
     
     [SerializeField] protected FloatVariable currentHealth;
     [SerializeField] protected GameEvent playerHealthEvent;
