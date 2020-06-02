@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** Class that handles shaking the Cinemachine virtual camera when ShakeCamera() is called.
+ * @author ShifatKhan
+ * @Special thanks to Lumidi Developer
+ */
 [RequireComponent(typeof(CinemachineVirtualCamera))]
 public class CinemachineCameraShake : MonoBehaviour
 {
@@ -24,6 +28,7 @@ public class CinemachineCameraShake : MonoBehaviour
 
         // Get Virtual Camera Noise Profile
         virtualCameraNoise = virtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+        virtualCameraNoise.m_AmplitudeGain = 0f;
 
     }
 
