@@ -37,7 +37,7 @@ public class CinemachineCameraShake : MonoBehaviour
         StartCoroutine(ShakeCameraCo());
     }
 
-    public IEnumerator ShakeCameraCo()
+    private IEnumerator ShakeCameraCo()
     {
         virtualCameraNoise.m_AmplitudeGain = shakeAmplitude;
         virtualCameraNoise.m_FrequencyGain = shakeFrequency;
